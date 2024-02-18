@@ -1,14 +1,15 @@
 package edu.java.bot.command;
 
+
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import java.util.List;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
 @Component
-public class HelpCommand implements Command{
+public class HelpCommand implements Command {
     @Getter
     private final String command = "/help";
     @Getter
@@ -19,6 +20,7 @@ public class HelpCommand implements Command{
         this.commands = commands;
         this.commands.add(this);
     }
+
     @Override
     public SendMessage handle(Update update) {
         return new SendMessage(update.message().chat().id(), getCommandsDescription());

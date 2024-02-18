@@ -4,7 +4,6 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.repository.UserRepository;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Getter
@@ -15,10 +14,9 @@ public class StartCommand implements Command {
     private final static String MESSAGE = "Hi, use /help to view the list of the available commands";
     private final UserRepository repository;
 
-    public StartCommand(UserRepository repository){
+    public StartCommand(UserRepository repository) {
         this.repository = repository;
     }
-
 
 
     @Override

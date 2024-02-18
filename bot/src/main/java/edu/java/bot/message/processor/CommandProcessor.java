@@ -3,13 +3,13 @@ package edu.java.bot.message.processor;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.command.Command;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
 
 @Component
 @Order(1)
@@ -21,8 +21,9 @@ public class CommandProcessor implements UpdateProcessor {
     }
 
     public Optional<SendMessage> tryProcess(Update update) {
-        if(!isCommand(update))
+        if (!isCommand(update)) {
             return Optional.empty();
+        }
 
         Command command = commands.get(update.message().text());
         SendMessage message = command != null ? command.handle(update) : getUnknownCommandMessage(update);

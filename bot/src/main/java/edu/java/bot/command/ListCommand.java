@@ -4,19 +4,20 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.repository.User;
 import edu.java.bot.repository.UserRepository;
+import java.util.List;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
 @Component
-public class ListCommand implements Command{
+public class ListCommand implements Command {
     @Getter
     private final String command = "/list";
     @Getter
     private final String description = "Write tracking resources";
 
     private final UserRepository userRepository;
+
     public ListCommand(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -28,10 +29,8 @@ public class ListCommand implements Command{
         return new SendMessage(chatId, message);
     }
 
-    private String getTrackLinks(Long chatId){
+    private String getTrackLinks(Long chatId) {
         User user = userRepository.getUser(chatId);
-        if(user == null)
-            return "You don't have tracking links. Use /track";
         List<String> trackLinks = user.getTrackLinks();
         StringBuilder message = new StringBuilder();
         if (trackLinks.isEmpty()) {

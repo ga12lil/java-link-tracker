@@ -33,17 +33,18 @@ public class TrackCommand extends AbstractReplyCommand {
     public SendMessage handleReply(Update update) {
         String link = update.message().text();
         try {
-            if(URLChecker.isValid(link)){
+            if (URLChecker.isValid(link)) {
                 repository.getUser(update.message().chat().id()).track(link);
-                return new SendMessage(update.message().chat().id(), "The link has been successfully added to the list of watched ones");
-            }
-            else{
+                return new SendMessage(update.message().chat().id(),
+                        "The link has been successfully added to the list of watched ones");
+            } else {
                 return new SendMessage(update.message().chat().id(), "Link is incorrect");
             }
 
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             log.error("Error adding link to watch list!", ex);
-            return new SendMessage(update.message().chat().id(), "An error occurred while adding the link to your watch list.");
+            return new SendMessage(update.message().chat().id(),
+                    "An error occurred while adding the link to your watch list.");
         }
 
 

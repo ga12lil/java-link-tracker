@@ -6,7 +6,6 @@ import edu.java.bot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 @Component
 @RequiredArgsConstructor
@@ -34,8 +33,7 @@ public class UntrackCommand extends AbstractReplyCommand {
         String link = update.message().text();
         try {
             repository.getUser(update.message().chat().id()).untrack(link);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             log.error("error when deleting link", ex);
             return new SendMessage(update.message().chat().id(), "An error occurred during deletion");
         }
