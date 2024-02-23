@@ -3,11 +3,9 @@ package edu.java.bot.utils;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.regex.Pattern;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.UrlValidator;
-
 import static org.springframework.util.ResourceUtils.toURL;
 
 @Slf4j
@@ -16,7 +14,7 @@ public class URLChecker {
     private static final int HTTP_OK = 200;
 
     public static boolean isValid(String text) {
-        String[] schemes = {"http","https"};
+        String[] schemes = {"http", "https"};
         UrlValidator urlValidator = new UrlValidator(schemes);
         if (urlValidator.isValid(text)) {
             HttpURLConnection connection = null;
