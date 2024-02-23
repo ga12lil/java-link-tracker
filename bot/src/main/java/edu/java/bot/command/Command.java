@@ -15,7 +15,6 @@ public interface Command {
         return new BotCommand(getCommand(), getDescription());
     }
 
-
     String getCommand();
 
     String getDescription();

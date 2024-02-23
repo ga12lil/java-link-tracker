@@ -27,5 +27,4 @@ public class MessageProcessor {
         return new SendMessage(update.message().chat().id(),
                 "Incorrect command. Use /help to find out the available commands");
     }
-
 }

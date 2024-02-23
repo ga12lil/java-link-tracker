@@ -6,10 +6,12 @@ import edu.java.bot.repository.User;
 import edu.java.bot.repository.UserRepository;
 import java.util.List;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@RequiredArgsConstructor
 public class ListCommand implements Command {
     @Getter
     private final String command = "/list";
@@ -17,10 +19,6 @@ public class ListCommand implements Command {
     private final String description = "Write tracking resources";
 
     private final UserRepository userRepository;
-
-    public ListCommand(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public SendMessage handle(Update update) {

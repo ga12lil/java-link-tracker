@@ -40,13 +40,10 @@ public class TrackCommand extends AbstractReplyCommand {
             } else {
                 return new SendMessage(update.message().chat().id(), "Link is incorrect");
             }
-
         } catch (Exception ex) {
             log.error("Error adding link to watch list!", ex);
             return new SendMessage(update.message().chat().id(),
                     "An error occurred while adding the link to your watch list.");
         }
-
-
     }
 }

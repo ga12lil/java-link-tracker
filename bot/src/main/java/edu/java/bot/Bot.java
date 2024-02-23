@@ -27,23 +27,24 @@ public class Bot implements AutoCloseable, UpdatesListener, ExceptionHandler {
     private final ApplicationConfig applicationConfig;
     private final MessageProcessor messageProcessor;
     private final List<Command> commands;
-    private TelegramBot bot;
+    private final TelegramBot tgBot;
 
     public <T extends BaseRequest<T, R>, R extends BaseResponse> void execute(BaseRequest<T, R> request) {
-        bot.execute(request);
+        tgBot.execute(request);
     }
 
     @EventListener(ApplicationReadyEvent.class)
     public void start() {
-        bot = new TelegramBot(applicationConfig.telegramToken());
-        bot.setUpdatesListener(this, this);
-        bot.execute(buildSetCommandsRequest(commands));
+        tgBot.setUpdatesListener(this, this);
+        tgBot.execute(buildSetCommandsRequest(commands));
         log.info("Bot started!");
     }
 
     @Override
     public int process(List<Update> updates) {
-        updates.stream().map(messageProcessor::process).forEach(x -> bot.execute(x));
+        updates.stream()
+                .map(messageProcessor::process)
+                .forEach(x -> tgBot.execute(x));
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
 
@@ -55,7 +56,7 @@ public class Bot implements AutoCloseable, UpdatesListener, ExceptionHandler {
     @Override
     public void close() {
         log.info("Bot shutdown!");
-        bot.shutdown();
+        tgBot.shutdown();
     }
 
     private SetMyCommands buildSetCommandsRequest(List<Command> commands) {
