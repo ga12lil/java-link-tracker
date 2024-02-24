@@ -13,7 +13,7 @@ import static org.springframework.util.ResourceUtils.toURL;
 public class URLChecker {
     private static final int HTTP_OK = 200;
 
-    public static boolean isValid(String text) {
+    public boolean isValid(String text) {
         String[] schemes = {"http", "https"};
         UrlValidator urlValidator = new UrlValidator(schemes);
         if (urlValidator.isValid(text)) {
