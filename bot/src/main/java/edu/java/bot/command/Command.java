@@ -14,7 +14,7 @@ public interface Command {
     default BotCommand toApiCommand() {
         return new BotCommand(getCommand(), getDescription());
     }
-    //why github cannot see that i change this line mmmmmm?????
+
     String getCommand();
 
     String getDescription();
