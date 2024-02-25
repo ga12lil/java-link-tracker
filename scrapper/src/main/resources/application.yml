@@ -3,6 +3,8 @@ app:
     enable: true
     interval: 10s
     force-check-delay: 10s
+  git-hub-api-path: https://api.github.com/
+  stack-overflow-api-path: https://api.stackexchange.com/
 
 spring:
   application:
@@ -13,3 +15,5 @@ server:
 
 logging:
   config: classpath:log4j2-plain.xml
+
+
