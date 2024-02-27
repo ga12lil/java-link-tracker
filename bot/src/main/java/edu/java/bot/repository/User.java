@@ -1,23 +1,21 @@
 package edu.java.bot.repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import lombok.Getter;
 
 
 @Getter
 public class User {
     private final Long chatId;
-    private final List<String> trackLinks = new ArrayList<>();
+    private final SortedSet<String> trackLinks = new TreeSet<>();
 
     public User(Long chatId) {
         this.chatId = chatId;
     }
 
     public void track(String url) {
-        if (!trackLinks.contains(url)) {
-            trackLinks.add(url);
-        }
+        trackLinks.add(url);
     }
 
     public void untrack(String url) {

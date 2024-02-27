@@ -6,10 +6,7 @@ import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import edu.java.bot.repository.UserRepository;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -20,7 +17,7 @@ class ListCommandTest {
     @Test
     public void handleEmptyTrackList() {
         User user = mock(User.class);
-        List<String> links = new ArrayList<>();
+        SortedSet<String> links = new TreeSet<>();
         when(user.getTrackLinks()).thenReturn(links);
         UserRepository repository = mock(UserRepository.class);
         when(repository.getUser(any())).thenReturn(user);
@@ -41,7 +38,7 @@ class ListCommandTest {
     @Test
     public void handleNotEmptyTrackList() {
         User user = mock(User.class);
-        List<String> links = new ArrayList<>();
+        SortedSet<String> links = new TreeSet<>();
         links.add("Track1");
         links.add("Track2");
         when(user.getTrackLinks()).thenReturn(links);

@@ -10,17 +10,11 @@ public class UserRepository {
     private final Map<Long, User> users = new HashMap<>(); //пока так
 
     public User getUser(Long id) {
-        if (!users.containsKey(id)) {
-            addUser(id);
-        }
+        addUser(id);
         return users.get(id);
-
     }
 
     public void addUser(Long id) {
-        if (!users.containsKey(id)) {
-            User user = new User(id);
-            users.put(id, user);
-        }
+        users.putIfAbsent(id, new User(id));
     }
 }
