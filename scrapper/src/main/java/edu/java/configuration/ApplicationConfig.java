@@ -13,11 +13,12 @@ public record ApplicationConfig(
     @Bean
     @NotNull
     Scheduler scheduler,
+    @Bean
     @NotNull
-    URI gitHubApiPath,
-    @NotNull
-    URI stackOverflowApiPath
+    Api api
 ) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
+
+    public record Api(@NotNull URI gitHubApiPath, @NotNull URI stackOverflowApiPath) {}
 }

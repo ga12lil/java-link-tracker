@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Configuration;
 public class ClientConfig {
     @Bean
     GitHubClient gitHubClient(ApplicationConfig applicationConfig) {
-        return new GitHubClient(applicationConfig.gitHubApiPath().getPath());
+        return new GitHubClient(applicationConfig.api().gitHubApiPath().getPath());
     }
 
     @Bean
     StackOverflowClient stackOverflowClient(ApplicationConfig applicationConfig) {
-        return new StackOverflowClient(applicationConfig.stackOverflowApiPath().getPath());
+        return new StackOverflowClient(applicationConfig.api().stackOverflowApiPath().getPath());
     }
 }

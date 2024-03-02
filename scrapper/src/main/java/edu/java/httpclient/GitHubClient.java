@@ -2,32 +2,25 @@ package edu.java.httpclient;
 
 import edu.java.dto.httpclient.GitHubRepositoryResponse;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.support.WebClientAdapter;
-import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 public class GitHubClient {
-    private final GitHubHttpExchange gitHubHttpExchange;
+    private final WebClient webClient;
     private final static String BASEURL = "https://api.github.com/";
 
     public GitHubClient() {
-        gitHubHttpExchange = factory(BASEURL)
-                .createClient(GitHubHttpExchange.class);
+        this.webClient = WebClient.create(BASEURL);
     }
 
     public GitHubClient(String baseUrl) {
-        gitHubHttpExchange = factory(baseUrl)
-                .createClient(GitHubHttpExchange.class);
+        this.webClient = WebClient.create(baseUrl);
     }
 
-    public GitHubRepositoryResponse fetchRepository(String owner, String repo) {
-        return gitHubHttpExchange.fetchRepository(owner, repo);
-    }
-
-    private HttpServiceProxyFactory factory(String baseUrl) {
-        WebClient webClient = WebClient.builder()
-                .baseUrl(baseUrl)
-                .build();
-        WebClientAdapter adapter = WebClientAdapter.create(webClient);
-        return HttpServiceProxyFactory.builderFor(adapter).build();
+    public GitHubRepositoryResponse fetchRepository(String owner, String repository) {
+        return this.webClient
+                .get()
+                .uri("/repos/{owner}/{repository}", owner, repository)
+                .retrieve()
+                .bodyToMono(GitHubRepositoryResponse.class)
+                .block();
     }
 }
