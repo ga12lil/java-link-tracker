@@ -1,5 +1,4 @@
-![Bot](https://github.com/sanyarnd/java-course-2023-backend-template/actions/workflows/bot.yml/badge.svg)
-![Scrapper](https://github.com/sanyarnd/java-course-2023-backend-template/actions/workflows/scrapper.yml/badge.svg)
+![Bot](https://github.com/ga12lil/java-course-2023-backend/actions/workflows/bot.yml/badge.svg)
 
 # Link Tracker
 
