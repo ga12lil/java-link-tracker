@@ -24,7 +24,7 @@ public class CommandProcessorTest {
     }
 
     @Test
-    void whenUnknownCommand_thenReturnUnknownCommandMessage() {
+    void shouldReturnUnknownCommandMessageWhenUnknownCommand() {
         var update = new Update();
         var message = new Message();
         var chat = new Chat();

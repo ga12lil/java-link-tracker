@@ -12,10 +12,10 @@ import static org.springframework.util.ResourceUtils.toURL;
 @UtilityClass
 public class URLChecker {
     private static final int HTTP_OK = 200;
+    private final String[] schemas = {"http", "https"};
+    private final UrlValidator urlValidator = new UrlValidator(schemas);
 
     public boolean isValid(String text) {
-        String[] schemes = {"http", "https"};
-        UrlValidator urlValidator = new UrlValidator(schemes);
         if (urlValidator.isValid(text)) {
             HttpURLConnection connection = null;
             try {

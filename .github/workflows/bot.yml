@@ -64,3 +64,4 @@ jobs:
           cache: maven
 
       - run: mvn -pl bot -am verify -Dskip.unit.tests=true
+

@@ -4,7 +4,7 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.repository.User;
 import edu.java.bot.repository.UserRepository;
-import java.util.List;
+import java.util.SortedSet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -29,7 +29,7 @@ public class ListCommand implements Command {
 
     private String getTrackLinks(Long chatId) {
         User user = userRepository.getUser(chatId);
-        List<String> trackLinks = user.getTrackLinks();
+        SortedSet<String> trackLinks = user.getTrackLinks();
         StringBuilder message = new StringBuilder();
         if (trackLinks.isEmpty()) {
             message.append("You don't have tracking links. Use /track");
