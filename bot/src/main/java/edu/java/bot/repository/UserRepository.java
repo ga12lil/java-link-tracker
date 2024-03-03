@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepository {
-    private final Map<Long, User> users = new HashMap<>(); //пока так
+    private final Map<Long, User> users = new HashMap<>();
 
     public User getUser(Long id) {
         addUser(id);
