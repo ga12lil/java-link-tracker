@@ -1,0 +1,3 @@
+GET https://api.github.com/repos/ga12lil/java-course-2023-backend
+###
+GET https://api.stackexchange.com/2.3/questions/123?site=stackoverflow
