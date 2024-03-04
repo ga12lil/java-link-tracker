@@ -10,10 +10,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
 public record ApplicationConfig(
-    @Bean
     @NotNull
     Scheduler scheduler,
-    @Bean
     @NotNull
     Api api
 ) {
