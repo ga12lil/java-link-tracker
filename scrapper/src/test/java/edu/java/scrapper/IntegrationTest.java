@@ -18,6 +18,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -44,7 +45,7 @@ public abstract class IntegrationTest {
                 c.getPassword()
         )) {
             Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
-            var migrationsPath = new File(".")
+            Path migrationsPath = new File(".")
                     .toPath().toAbsolutePath()
                     .getParent().getParent()
                     .resolve("migrations");

@@ -25,7 +25,6 @@ public class MigrationTest extends IntegrationTest {
                 POSTGRES.getUsername(),
                 POSTGRES.getPassword()
         );
-
         ResultSet allTables = connection.createStatement().executeQuery(GET_ALL_TABLES);
 
         assertThat(allTablesToList(allTables)).containsAll(necessaryTables());
