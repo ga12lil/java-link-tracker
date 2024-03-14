@@ -5,7 +5,6 @@ import edu.java.exception.ChatNotFoundException;
 import edu.java.exception.LinkNotFoundException;
 import java.util.Arrays;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

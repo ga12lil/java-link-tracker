@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class UpdatesService {
     private final Bot bot;
 
-    public void postUpdate(LinkUpdateRequest linkUpdateRequest){
+    public void postUpdate(LinkUpdateRequest linkUpdateRequest) {
         for (var id : linkUpdateRequest.tgChatIds()) {
             bot.execute(new SendMessage(id, linkUpdateRequest.description()));
         }

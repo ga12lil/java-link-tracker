@@ -3,7 +3,6 @@ package edu.java.bot.controller;
 import edu.java.bot.dto.ApiErrorResponse;
 import java.util.Arrays;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
