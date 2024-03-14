@@ -10,8 +10,6 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
 public record ApplicationConfig(
     @NotNull
-    URI botPath,
-    @NotNull
     Scheduler scheduler,
     @NotNull
     Api api
@@ -19,5 +17,5 @@ public record ApplicationConfig(
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
 
-    public record Api(@NotNull URI gitHubApiPath, @NotNull URI stackOverflowApiPath) {}
+    public record Api(@NotNull URI gitHubApiPath, @NotNull URI stackOverflowApiPath, @NotNull URI botPath) {}
 }

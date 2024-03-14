@@ -24,7 +24,7 @@ public class ClientConfig {
     @Bean
     BotClient botClient(ApplicationConfig applicationConfig) {
         WebClient client = WebClient.builder()
-                .baseUrl(applicationConfig.botPath().toString())
+                .baseUrl(applicationConfig.api().botPath().toString())
                 .build();
         HttpServiceProxyFactory factory = HttpServiceProxyFactory
                 .builderFor(WebClientAdapter.create(client))
