@@ -14,7 +14,7 @@ public class ClientConfig {
         return scrapperClient(applicationConfig.scrapperPath().toString());
     }
 
-    public ScrapperClient scrapperClient(String scrapperPath){
+    public ScrapperClient scrapperClient(String scrapperPath) {
         WebClient client = WebClient.builder()
                 .baseUrl(scrapperPath)
                 .build();
