@@ -11,8 +11,12 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 public class ClientConfig {
     @Bean
     ScrapperClient scrapperClient(ApplicationConfig applicationConfig) {
+        return scrapperClient(applicationConfig.scrapperPath().toString());
+    }
+
+    public ScrapperClient scrapperClient(String scrapperPath){
         WebClient client = WebClient.builder()
-                .baseUrl(applicationConfig.scrapperPath().toString())
+                .baseUrl(scrapperPath)
                 .build();
         HttpServiceProxyFactory factory = HttpServiceProxyFactory
                 .builderFor(WebClientAdapter.create(client))
