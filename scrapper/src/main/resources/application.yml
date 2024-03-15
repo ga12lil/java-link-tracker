@@ -6,7 +6,7 @@ app:
   api:
     git-hub-api-path: https://api.github.com
     stack-overflow-api-path: https://api.stackexchange.com
-  bot-path: "http://localhost:8090"
+    bot-path: http://localhost:8090
 
 spring:
   application:
