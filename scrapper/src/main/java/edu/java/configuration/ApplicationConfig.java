@@ -17,5 +17,5 @@ public record ApplicationConfig(
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
 
-    public record Api(@NotNull URI gitHubApiPath, @NotNull URI stackOverflowApiPath) {}
+    public record Api(@NotNull URI gitHubApiPath, @NotNull URI stackOverflowApiPath, @NotNull URI botPath) {}
 }
