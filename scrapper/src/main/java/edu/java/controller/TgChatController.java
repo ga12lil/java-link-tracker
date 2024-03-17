@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tg-chat/{id}")
 public class TgChatController {
     private final ChatService chatService;
+
     @PostMapping
     @Operation(summary = "Зарегистрировать чат")
     @ApiResponse(responseCode = "200", description = "Чат зарегистрирован")

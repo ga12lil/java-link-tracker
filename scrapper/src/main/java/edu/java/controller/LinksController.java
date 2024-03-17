@@ -13,11 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LinksController {
     private final LinkService linkService;
     private final LinkMapper linkMapper;
+
     @GetMapping
     @Operation(summary = "Получить отслеживаемые ссылки")
     @ApiResponse(

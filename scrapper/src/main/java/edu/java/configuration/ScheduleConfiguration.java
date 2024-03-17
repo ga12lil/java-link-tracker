@@ -1,9 +1,9 @@
 package edu.java.configuration;
 
+import java.time.Duration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.Duration;
 
 @Configuration
 public class ScheduleConfiguration {
