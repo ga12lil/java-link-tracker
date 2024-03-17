@@ -1,0 +1,2 @@
+ALTER TABLE link
+ADD last_check TIMESTAMP DEFAULT now() NOT NULL

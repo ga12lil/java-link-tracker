@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
@@ -48,5 +49,15 @@ public class JdbcLinkService implements LinkService{
     @Override
     public List<LinkEntity> listAll(long tgChatId) {
         return subscriptionRepository.findLinksByChatId(tgChatId);
+    }
+
+    @Override
+    public List<LinkEntity> findLinksUpdatedBefore(OffsetDateTime dateTime) {
+        return linkRepository.findLinksUpdatedBefore(dateTime);
+    }
+
+    @Override
+    public void save(LinkEntity linkEntity){
+        linkRepository.save(linkEntity);
     }
 }

@@ -2,7 +2,7 @@ app:
   scheduler:
     enable: true
     interval: 10s
-    force-check-delay: 10s
+    force-check-delay: 30s
   api:
     git-hub-api-path: https://api.github.com
     stack-overflow-api-path: https://api.stackexchange.com

@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,20 +17,23 @@ import java.util.Optional;
 public class JdbcLinkRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    private final static String FIND_ALL_QUERY = "select id, url, updated_at from link";
+    private final static String FIND_ALL_QUERY = "select id, url, updated_at, last_check from link";
     private final static String ADD_QUERY = "insert into link (url) values (?)";
     private final static String REMOVE_QUERY = "delete from link where url = ?";
     private final static String SAVE_QUERY = "update link set url=?, updated_at=? where id=?";
     private final static String FIND_QUERY = """
-            select id, url, updated_at
+            select id, url, updated_at, last_check
             from link
             where url = ?
             """;
     private final static String FIND_BY_ID_QUERY = """
-            select id, url, updated_at
+            select id, url, updated_at, last_check
             from link
             where id = ?
             """;
+
+    private final static String FIND_UPDATED_BEFORE_QUERY =
+            "SELECT id, url, updated_at, last_check FROM link WHERE last_check < ?";
 
     public List<LinkEntity> findAll() {
         return jdbcTemplate.query(FIND_ALL_QUERY, new DataClassRowMapper<>(LinkEntity.class));
@@ -52,10 +56,19 @@ public class JdbcLinkRepository {
         }
     }
     public Optional<LinkEntity> findById(Long id) {
-        return Optional.ofNullable(jdbcTemplate.queryForObject(FIND_BY_ID_QUERY, new DataClassRowMapper<>(LinkEntity.class), id));
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(FIND_BY_ID_QUERY, new DataClassRowMapper<>(LinkEntity.class), id));
+        }
+        catch(EmptyResultDataAccessException ex){
+            return Optional.empty();
+        }
     }
 
     public int save(LinkEntity link) {
         return jdbcTemplate.update(SAVE_QUERY, link.url(), link.updatedAt(), link.id());
+    }
+
+    public List<LinkEntity> findLinksUpdatedBefore(OffsetDateTime dateTime) {
+        return jdbcTemplate.query(FIND_UPDATED_BEFORE_QUERY, new DataClassRowMapper<>(LinkEntity.class), dateTime);
     }
 }

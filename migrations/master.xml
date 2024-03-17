@@ -13,4 +13,5 @@
     <include file="init/add_cascade.sql" relativeToChangelogFile="true"/>
     <include file="init/add_autogenerate_to_id_link.sql" relativeToChangelogFile="true"/>
     <include file="init/add_default_now_to_chat.sql" relativeToChangelogFile="true"/>
+    <include file="init/add_column_last_check_to_link.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

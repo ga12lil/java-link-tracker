@@ -24,6 +24,6 @@ public class LinkUpdaterImpl implements LinkUpdater {
         OffsetDateTime currentUpdatedAtTime = handler.getUpdates(parseResponse);
 
 
-        return new LinkEntity(link.id(), link.url(), currentUpdatedAtTime);
+        return new LinkEntity(link.id(), link.url(), currentUpdatedAtTime, OffsetDateTime.now());
     }
 }
