@@ -33,8 +33,8 @@ public class LinkUpdaterScheduler {
                 log.info(updatedLink.updatedAt().toString());
                 log.info(linkEntity.updatedAt().toString());
                 log.info("link: {} have updates!", updatedLink.url());
-                linkService.save(updatedLink);
             }
+            linkService.save(updatedLink);
         }
     }
 }

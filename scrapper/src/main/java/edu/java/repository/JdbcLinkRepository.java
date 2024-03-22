@@ -20,7 +20,7 @@ public class JdbcLinkRepository {
     private final static String FIND_ALL_QUERY = "select id, url, updated_at, last_check from link";
     private final static String ADD_QUERY = "insert into link (url) values (?)";
     private final static String REMOVE_QUERY = "delete from link where url = ?";
-    private final static String SAVE_QUERY = "update link set url=?, updated_at=? where id=?";
+    private final static String SAVE_QUERY = "update link set url=?, updated_at=?, last_check=? where id=?";
     private final static String FIND_QUERY = """
             select id, url, updated_at, last_check
             from link
@@ -65,7 +65,7 @@ public class JdbcLinkRepository {
     }
 
     public int save(LinkEntity link) {
-        return jdbcTemplate.update(SAVE_QUERY, link.url(), link.updatedAt(), link.id());
+        return jdbcTemplate.update(SAVE_QUERY, link.url(), link.updatedAt(), link.lastCheck(), link.id());
     }
 
     public List<LinkEntity> findLinksUpdatedBefore(OffsetDateTime dateTime) {
