@@ -3,8 +3,8 @@ package edu.java.linkparser;
 import edu.java.linkparser.processor.GitHubProcessor;
 import edu.java.linkparser.processor.StackOverflowProcessor;
 import edu.java.linkparser.response.ParseResponse;
-import org.springframework.stereotype.Component;
 import java.net.URI;
+import org.springframework.stereotype.Component;
 
 @Component
 public final class LinkParser {

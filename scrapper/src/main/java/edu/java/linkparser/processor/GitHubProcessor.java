@@ -1,9 +1,8 @@
 package edu.java.linkparser.processor;
 
 import edu.java.linkparser.response.GitHubResponse;
-import io.micrometer.common.lang.Nullable;
-
 import java.net.URI;
+import org.jetbrains.annotations.Nullable;
 
 public final class GitHubProcessor implements ParseProcessor {
     private static final String GITHUB_DOMAIN = "github.com";

@@ -3,9 +3,9 @@ package edu.java.dto.mapper;
 import edu.java.dto.domain.LinkEntity;
 import edu.java.dto.links.LinkResponse;
 import edu.java.dto.links.ListLinksResponse;
-import org.springframework.stereotype.Component;
-import java.util.List;
 import java.net.URI;
+import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 public class LinkMapper {

@@ -2,12 +2,11 @@ package edu.java.repository;
 
 import edu.java.dto.domain.LinkEntity;
 import edu.java.dto.domain.SubscriptionEntity;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -48,6 +47,7 @@ public class JdbcSubscriptionRepository {
     public List<LinkEntity> findLinksByChatId(Long chatId) {
         return jdbcTemplate.query(FIND_LINKS_BY_CHAT_ID_QUERY, new DataClassRowMapper<>(LinkEntity.class), chatId);
     }
+
     public int countByLinkId(Long id) {
         return jdbcTemplate.queryForObject(COUNT_BY_LINK_ID_QUERY, Integer.class, id);
     }

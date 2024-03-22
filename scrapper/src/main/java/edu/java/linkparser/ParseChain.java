@@ -2,7 +2,6 @@ package edu.java.linkparser;
 
 import edu.java.linkparser.processor.ParseProcessor;
 import edu.java.linkparser.response.ParseResponse;
-
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;

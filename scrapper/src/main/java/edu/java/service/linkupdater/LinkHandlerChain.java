@@ -2,10 +2,9 @@ package edu.java.service.linkupdater;
 
 import edu.java.linkparser.response.ParseResponse;
 import edu.java.service.linkupdater.handler.LinkHandler;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor

@@ -2,7 +2,6 @@ package edu.java.linkparser.processor;
 
 import edu.java.linkparser.response.StackOverflowResponse;
 import io.micrometer.common.lang.Nullable;
-
 import java.net.URI;
 
 public final class StackOverflowProcessor implements ParseProcessor {

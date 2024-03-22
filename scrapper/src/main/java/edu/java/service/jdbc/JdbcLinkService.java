@@ -6,19 +6,19 @@ import edu.java.repository.JdbcLinkRepository;
 import edu.java.repository.JdbcSubscriptionRepository;
 import edu.java.service.LinkService;
 import edu.java.service.LinkUpdater;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class JdbcLinkService implements LinkService{
+public class JdbcLinkService implements LinkService {
     private final JdbcLinkRepository linkRepository;
     private final JdbcSubscriptionRepository subscriptionRepository;
     private final LinkUpdater linkUpdater;
+
     @Override
     public LinkEntity add(long tgChatId, URI url) {
         LinkEntity link = linkRepository.find(url.toString()).orElseGet(() -> {
@@ -57,7 +57,7 @@ public class JdbcLinkService implements LinkService{
     }
 
     @Override
-    public void save(LinkEntity linkEntity){
+    public void save(LinkEntity linkEntity) {
         linkRepository.save(linkEntity);
     }
 }

@@ -5,11 +5,10 @@ import edu.java.linkparser.LinkParser;
 import edu.java.linkparser.response.ParseResponse;
 import edu.java.service.LinkUpdater;
 import edu.java.service.linkupdater.handler.LinkHandler;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.net.URI;
 import java.time.OffsetDateTime;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor

@@ -1,16 +1,14 @@
 package edu.java.repository;
 
 import edu.java.dto.domain.LinkEntity;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.sql.SQLException;
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -40,7 +38,7 @@ public class JdbcLinkRepository {
     }
 
     public Long add(String url) {
-        return (long)jdbcTemplate.update(ADD_QUERY, url);
+        return (long) jdbcTemplate.update(ADD_QUERY, url);
     }
 
     public int remove(String url) {
@@ -49,17 +47,20 @@ public class JdbcLinkRepository {
 
     public Optional<LinkEntity> find(String url) {
         try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject(FIND_QUERY, new DataClassRowMapper<>(LinkEntity.class), url));
-        }
-        catch(EmptyResultDataAccessException ex){
+            return Optional.ofNullable(
+                    jdbcTemplate.queryForObject(FIND_QUERY, new DataClassRowMapper<>(LinkEntity.class), url)
+            );
+        } catch (EmptyResultDataAccessException ex) {
             return Optional.empty();
         }
     }
+
     public Optional<LinkEntity> findById(Long id) {
         try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject(FIND_BY_ID_QUERY, new DataClassRowMapper<>(LinkEntity.class), id));
-        }
-        catch(EmptyResultDataAccessException ex){
+            return Optional.ofNullable(
+                    jdbcTemplate.queryForObject(FIND_BY_ID_QUERY, new DataClassRowMapper<>(LinkEntity.class), id)
+            );
+        } catch (EmptyResultDataAccessException ex) {
             return Optional.empty();
         }
     }
