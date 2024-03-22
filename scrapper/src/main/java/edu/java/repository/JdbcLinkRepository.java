@@ -38,7 +38,7 @@ public class JdbcLinkRepository {
     }
 
     public Long add(String url) {
-        return (long) jdbcTemplate.update(ADD_QUERY, url);
+        return Long.valueOf(jdbcTemplate.update(ADD_QUERY, url));
     }
 
     public int remove(String url) {

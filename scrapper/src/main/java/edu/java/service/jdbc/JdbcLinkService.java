@@ -10,10 +10,12 @@ import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class JdbcLinkService implements LinkService {
     private final JdbcLinkRepository linkRepository;
     private final JdbcSubscriptionRepository subscriptionRepository;
@@ -22,8 +24,8 @@ public class JdbcLinkService implements LinkService {
     @Override
     public LinkEntity add(long tgChatId, URI url) {
         LinkEntity link = linkRepository.find(url.toString()).orElseGet(() -> {
-            Long linkId = linkRepository.add(url.toString());
-            return linkRepository.findById(linkId).orElseThrow();
+            linkRepository.add(url.toString());
+            return linkRepository.find(url.toString()).orElseThrow();
         });
 
         LinkEntity updatedLink = linkUpdater.update(link);
