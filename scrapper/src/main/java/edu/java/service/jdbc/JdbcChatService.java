@@ -1,9 +1,15 @@
 package edu.java.service.jdbc;
 
+import edu.java.dto.domain.ChatEntity;
+import edu.java.dto.domain.LinkEntity;
 import edu.java.exception.ChatNotFoundException;
+import edu.java.exception.LinkNotFoundException;
 import edu.java.repository.JdbcChatRepository;
+import edu.java.repository.JdbcLinkRepository;
 import edu.java.repository.JdbcSubscriptionRepository;
 import edu.java.service.ChatService;
+import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class JdbcChatService  implements ChatService {
     private final JdbcChatRepository chatRepository;
     private final JdbcSubscriptionRepository subscriptionRepository;
+    private final JdbcLinkRepository jdbcLinkRepository;
+    private final JdbcSubscriptionRepository jdbcSubscriptionRepository;
 
     @Override
     @Transactional
@@ -28,5 +36,12 @@ public class JdbcChatService  implements ChatService {
             throw new ChatNotFoundException(tgChatId);
         }
         subscriptionRepository.removeLinksWithoutSubscribers();
+    }
+
+    @Override
+    @Transactional
+    public List<ChatEntity> findByLink(URI url) throws LinkNotFoundException {
+        LinkEntity link = jdbcLinkRepository.find(url.toString()).orElseThrow(() -> new LinkNotFoundException(url));
+        return jdbcSubscriptionRepository.findChatsByLinkId(link.id());
     }
 }
