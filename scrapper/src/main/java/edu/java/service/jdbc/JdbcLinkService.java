@@ -13,7 +13,6 @@ import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 public class JdbcLinkService implements LinkService{
     private final JdbcLinkRepository linkRepository;

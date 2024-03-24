@@ -11,6 +11,6 @@ public interface LinkService {
     LinkEntity add(long tgChatId, URI url);
     LinkEntity remove(long tgChatId, URI url) throws LinkNotFoundException;
     List<LinkEntity> listAll(long tgChatId);
-     List<LinkEntity> findLinksUpdatedBefore(OffsetDateTime dateTime);
+    List<LinkEntity> findLinksUpdatedBefore(OffsetDateTime dateTime);
     void save(LinkEntity linkEntity);
 }
