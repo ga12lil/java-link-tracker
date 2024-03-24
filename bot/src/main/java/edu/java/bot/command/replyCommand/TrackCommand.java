@@ -2,8 +2,10 @@ package edu.java.bot.command.replyCommand;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import edu.java.bot.repository.UserRepository;
+import edu.java.bot.dto.scrapper.AddLinkRequest;
+import edu.java.bot.httpclient.ScrapperClient;
 import edu.java.bot.utils.URLChecker;
+import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class TrackCommand extends AbstractReplyCommand {
-    private final UserRepository repository;
+    private final ScrapperClient scrapperClient;
 
     @Override
     public String getCommand() {
@@ -34,7 +36,8 @@ public class TrackCommand extends AbstractReplyCommand {
         String link = update.message().text();
         try {
             if (URLChecker.isValid(link)) {
-                repository.getUser(update.message().chat().id()).track(link);
+                AddLinkRequest request = new AddLinkRequest(URI.create(link));
+                scrapperClient.addLink(update.message().chat().id(), request);
                 return new SendMessage(update.message().chat().id(),
                         "The link has been successfully added to the list of watched ones");
             } else {
