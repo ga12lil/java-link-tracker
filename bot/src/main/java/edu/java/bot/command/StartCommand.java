@@ -6,6 +6,7 @@ import edu.java.bot.httpclient.ScrapperClient;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 @Getter
 @Component
@@ -19,7 +20,12 @@ public class StartCommand implements Command {
     @Override
     public SendMessage handle(Update update) {
         Long chatId = update.message().chat().id();
-        scrapperClient.registerChat(chatId);
-        return new SendMessage(chatId, MESSAGE);
+        try{
+            scrapperClient.registerChat(chatId);
+            return new SendMessage(chatId, MESSAGE);
+        } catch (WebClientResponseException.BadRequest ex){
+            return new SendMessage(chatId, "You already registered");
+        }
+
     }
 }
