@@ -23,9 +23,9 @@ public class JdbcSubscriptionRepository {
             where (select count(link_id) from subscription where link_id = link.id) = 0
             """;
     private final static String FIND_LINKS_BY_CHAT_ID_QUERY = """
-            select id, url, updated_at
+            select id, url, updated_at, last_check
             from link
-            join subscription s on link.id = s.link_id
+            join subscription on link.id = link_id
             where chat_id = ?
             """;
     private final static String FIND_BY_LINK_ID_QUERY = """
