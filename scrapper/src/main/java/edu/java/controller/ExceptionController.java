@@ -24,11 +24,11 @@ public class ExceptionController {
         return toApiError(ex, "Chat not found", HttpStatus.NOT_FOUND.toString());
     }
 
-    @ExceptionHandler(value = { Exception.class })
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ApiErrorResponse serverError(Exception ex) {
-        return toApiError(ex, "Некорректные параметры запроса", HttpStatus.BAD_REQUEST.toString());
-    }
+//    @ExceptionHandler(value = { Exception.class })
+//    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+//    public ApiErrorResponse serverError(Exception ex) {
+//        return toApiError(ex, "Некорректные параметры запроса", HttpStatus.BAD_REQUEST.toString());
+//    }
 
     private ApiErrorResponse toApiError(Throwable ex, String description, String code) {
         String exName = ex.getClass().getName();
