@@ -11,16 +11,13 @@ import edu.java.service.ChatService;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
 public class JdbcChatService  implements ChatService {
     private final JdbcChatRepository chatRepository;
     private final JdbcSubscriptionRepository subscriptionRepository;
-    private final JdbcLinkRepository jdbcLinkRepository;
-    private final JdbcSubscriptionRepository jdbcSubscriptionRepository;
+    private final JdbcLinkRepository linkRepository;
 
     @Override
     @Transactional
@@ -41,7 +38,7 @@ public class JdbcChatService  implements ChatService {
     @Override
     @Transactional
     public List<ChatEntity> findByLink(URI url) throws LinkNotFoundException {
-        LinkEntity link = jdbcLinkRepository.find(url.toString()).orElseThrow(() -> new LinkNotFoundException(url));
-        return jdbcSubscriptionRepository.findChatsByLinkId(link.id());
+        LinkEntity link = linkRepository.find(url.toString()).orElseThrow(() -> new LinkNotFoundException(url));
+        return subscriptionRepository.findChatsByLinkId(link.id());
     }
 }

@@ -17,7 +17,9 @@ public record ApplicationConfig(
     @NotNull
     KafkaConfig kafka,
     @NotNull
-    RetryType clientRetryType
+    RetryType clientRetryType,
+    @NotNull
+    AccessType databaseAccessType
 ) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }

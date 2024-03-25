@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-@Repository
 @RequiredArgsConstructor
 public class JdbcSubscriptionRepository {
     private final JdbcTemplate jdbcTemplate;
