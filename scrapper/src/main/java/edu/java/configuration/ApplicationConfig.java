@@ -12,7 +12,10 @@ public record ApplicationConfig(
     @NotNull
     Scheduler scheduler,
     @NotNull
-    Api api
+    Api api,
+    @NotNull
+    AccessType databaseAccessType
+
 ) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
