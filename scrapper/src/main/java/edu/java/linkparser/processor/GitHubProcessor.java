@@ -3,7 +3,9 @@ package edu.java.linkparser.processor;
 import edu.java.linkparser.response.GitHubResponse;
 import java.net.URI;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class GitHubProcessor implements ParseProcessor {
     private static final String GITHUB_DOMAIN = "github.com";
     private static final int PATH_SEGMENTS_COUNT = 3;

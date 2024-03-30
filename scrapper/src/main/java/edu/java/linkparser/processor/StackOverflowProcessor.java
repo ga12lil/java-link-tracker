@@ -2,8 +2,11 @@ package edu.java.linkparser.processor;
 
 import edu.java.linkparser.response.StackOverflowResponse;
 import io.micrometer.common.lang.Nullable;
+import org.springframework.stereotype.Component;
+
 import java.net.URI;
 
+@Component
 public final class StackOverflowProcessor implements ParseProcessor {
     private static final String STACKOVERFLOW_DOMAIN = "stackoverflow.com";
     private static final String QUESTIONS_SECTION = "questions";

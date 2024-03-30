@@ -23,15 +23,14 @@ public class LinkUpdaterScheduler {
 
     @Scheduled(fixedDelayString = "#{@schedulerIntervalMs}")
     public void update() {
-        log.info("scheduler");
+        log.info("Scheduler started updating links...");
         OffsetDateTime dateTime = OffsetDateTime.now().minus(forceCheckDelay);
         List<LinkEntity> linksToUpdate = linkService.findLinksUpdatedBefore(dateTime);
         for (LinkEntity linkEntity : linksToUpdate) {
             LinkEntity updatedLink = linkUpdater.update(linkEntity);
             if (!updatedLink.updatedAt().equals(linkEntity.updatedAt())) {
-                log.info(updatedLink.updatedAt().toString());
-                log.info(linkEntity.updatedAt().toString());
-                log.info("link: {} have updates!", updatedLink.url());
+                log.info("link: {} have updates! new updatedAt: {}, old: {}",
+                        updatedLink.url(), updatedLink.updatedAt(), linkEntity.updatedAt());
             }
             linkService.save(updatedLink);
         }

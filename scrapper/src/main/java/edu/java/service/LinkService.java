@@ -16,5 +16,4 @@ public interface LinkService {
     List<LinkEntity> findLinksUpdatedBefore(OffsetDateTime dateTime);
 
     void save(LinkEntity linkEntity);
-
 }

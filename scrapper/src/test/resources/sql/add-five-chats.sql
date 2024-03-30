@@ -1,0 +1,5 @@
+INSERT INTO chat (id) VALUES (121);
+INSERT INTO chat (id) VALUES (122);
+INSERT INTO chat (id) VALUES (123);
+INSERT INTO chat (id) VALUES (124);
+INSERT INTO chat (id) VALUES (125);

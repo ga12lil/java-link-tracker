@@ -21,8 +21,6 @@ public class LinkUpdaterImpl implements LinkUpdater {
         ParseResponse parseResponse = linkParser.parse(URI.create(link.url()));
         LinkHandler handler = linkHandlerChain.getHandler(parseResponse);
         OffsetDateTime currentUpdatedAtTime = handler.getUpdates(parseResponse);
-
-
         return new LinkEntity(link.id(), link.url(), currentUpdatedAtTime, OffsetDateTime.now());
     }
 }
