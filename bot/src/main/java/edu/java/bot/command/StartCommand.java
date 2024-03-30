@@ -20,10 +20,10 @@ public class StartCommand implements Command {
     @Override
     public SendMessage handle(Update update) {
         Long chatId = update.message().chat().id();
-        try{
+        try {
             scrapperClient.registerChat(chatId);
             return new SendMessage(chatId, MESSAGE);
-        } catch (WebClientResponseException.BadRequest ex){
+        } catch (WebClientResponseException.BadRequest ex) {
             return new SendMessage(chatId, "You already registered");
         }
 

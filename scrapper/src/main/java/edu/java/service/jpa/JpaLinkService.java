@@ -4,19 +4,17 @@ import edu.java.dto.domain.LinkEntity;
 import edu.java.dto.domain.jpa.JpaChatEntity;
 import edu.java.dto.domain.jpa.JpaLinkEntity;
 import edu.java.dto.mapper.LinkMapper;
-import edu.java.exception.ChatNotFoundException;
 import edu.java.exception.LinkNotFoundException;
 import edu.java.repository.jpa.JpaChatRepository;
 import edu.java.repository.jpa.JpaLinkRepository;
 import edu.java.service.LinkService;
 import edu.java.service.LinkUpdater;
-import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 public class JpaLinkService implements LinkService {
@@ -50,7 +48,7 @@ public class JpaLinkService implements LinkService {
 
     @Override
     @Transactional
-    public LinkEntity remove(long chatId, URI url) throws LinkNotFoundException{
+    public LinkEntity remove(long chatId, URI url) throws LinkNotFoundException {
         JpaLinkEntity linkEntity = linkRepository
                 .findByUrl(url.toString()).orElseThrow(() -> new LinkNotFoundException(url));
         JpaChatEntity chatEntity = chatRepository.findById(chatId).orElseThrow();

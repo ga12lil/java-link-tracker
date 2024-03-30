@@ -8,11 +8,10 @@ import edu.java.exception.LinkNotFoundException;
 import edu.java.repository.jpa.JpaChatRepository;
 import edu.java.repository.jpa.JpaLinkRepository;
 import edu.java.service.ChatService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.net.URI;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @RequiredArgsConstructor
