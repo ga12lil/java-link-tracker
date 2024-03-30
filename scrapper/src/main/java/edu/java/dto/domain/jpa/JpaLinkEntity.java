@@ -9,10 +9,10 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
-import java.time.OffsetDateTime;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
