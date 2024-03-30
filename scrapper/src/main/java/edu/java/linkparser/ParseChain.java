@@ -2,12 +2,10 @@ package edu.java.linkparser;
 
 import edu.java.linkparser.processor.ParseProcessor;
 import edu.java.linkparser.response.ParseResponse;
+import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.net.URI;
-import java.util.LinkedList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Component

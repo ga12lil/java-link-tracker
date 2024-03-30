@@ -2,9 +2,8 @@ package edu.java.linkparser.processor;
 
 import edu.java.linkparser.response.StackOverflowResponse;
 import io.micrometer.common.lang.Nullable;
-import org.springframework.stereotype.Component;
-
 import java.net.URI;
+import org.springframework.stereotype.Component;
 
 @Component
 public final class StackOverflowProcessor implements ParseProcessor {
