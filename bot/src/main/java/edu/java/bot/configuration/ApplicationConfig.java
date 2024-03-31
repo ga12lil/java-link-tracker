@@ -1,5 +1,6 @@
 package edu.java.bot.configuration;
 
+import edu.java.bot.configuration.httpclient.RetryType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
@@ -13,6 +14,8 @@ public record ApplicationConfig(
     @NotEmpty
     String telegramToken,
     @NotNull
-    URI scrapperPath
+    URI scrapperPath,
+    @NotNull
+    RetryType clientRetryType
 ) {
 }

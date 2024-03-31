@@ -1,6 +1,7 @@
 app:
   telegram-token: ${TELEGRAM_TOKEN}
   scrapper-path: "http://localhost:8080"
+  client-retry-type: constant
 
 spring:
   application:
