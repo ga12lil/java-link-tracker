@@ -15,6 +15,7 @@ import reactor.util.retry.Retry;
 @RequiredArgsConstructor
 public class ClientConfig {
     private final Retry retry;
+
     @Bean
     ScrapperClient scrapperClient(ApplicationConfig applicationConfig) {
         return scrapperClient(applicationConfig.scrapperPath().toString());

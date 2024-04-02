@@ -13,12 +13,14 @@ public class StackOverflowClient {
     @Autowired
     protected Retry retry;
 
-    public StackOverflowClient() {
+    public StackOverflowClient(Retry retry) {
         this.webClient = WebClient.create(BASEURL);
+        this.retry = retry;
     }
 
-    public StackOverflowClient(String baseUrl) {
+    public StackOverflowClient(String baseUrl, Retry retry) {
         this.webClient = WebClient.create(baseUrl);
+        this.retry = retry;
     }
 
     public StackExchangeQuestionResponse fetchQuestion(Long id) {

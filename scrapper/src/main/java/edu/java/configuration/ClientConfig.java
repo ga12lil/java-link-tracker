@@ -17,14 +17,15 @@ import reactor.util.retry.Retry;
 @RequiredArgsConstructor
 public class ClientConfig {
     private final Retry retry;
+
     @Bean
     GitHubClient gitHubClient(ApplicationConfig applicationConfig) {
-        return new GitHubClient(applicationConfig.api().gitHubApiPath().toString());
+        return new GitHubClient(applicationConfig.api().gitHubApiPath().toString(), retry);
     }
 
     @Bean
     StackOverflowClient stackOverflowClient(ApplicationConfig applicationConfig) {
-        return new StackOverflowClient(applicationConfig.api().stackOverflowApiPath().toString());
+        return new StackOverflowClient(applicationConfig.api().stackOverflowApiPath().toString(), retry);
     }
 
     @Bean
