@@ -13,12 +13,12 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 public class ClientConfig {
     @Bean
     GitHubClient gitHubClient(ApplicationConfig applicationConfig) {
-        return new GitHubClient(applicationConfig.api().gitHubApiPath().getPath());
+        return new GitHubClient(applicationConfig.api().gitHubApiPath().toString());
     }
 
     @Bean
     StackOverflowClient stackOverflowClient(ApplicationConfig applicationConfig) {
-        return new StackOverflowClient(applicationConfig.api().stackOverflowApiPath().getPath());
+        return new StackOverflowClient(applicationConfig.api().stackOverflowApiPath().toString());
     }
 
     @Bean
