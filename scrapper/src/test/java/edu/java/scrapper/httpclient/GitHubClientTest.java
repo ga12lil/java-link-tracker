@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GitHubClientTest extends AbstractTest {
 
     private final String baseUrl = "http://localhost:8080";
-    private final GitHubClient gitHubClient = new GitHubClient(baseUrl);
+    private final GitHubClient gitHubClient = new GitHubClient(baseUrl, retry());
 
     @Test
     void shouldReturnResponseWithUpdatedAt() {

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class StackOverflowClientTest extends AbstractTest {
 
     private final String baseUrl = "http://localhost:8080";
-    private final StackOverflowClient stackOverflowClient = new StackOverflowClient(baseUrl);
+    private final StackOverflowClient stackOverflowClient = new StackOverflowClient(baseUrl, retry());
 
     @Test
     void shouldReturnResponseWithUpdatedAt() {

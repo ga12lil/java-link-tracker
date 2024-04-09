@@ -7,6 +7,7 @@ app:
     git-hub-api-path: https://api.github.com
     stack-overflow-api-path: https://api.stackexchange.com
     bot-path: http://localhost:8090
+  client-retry-type: constant
 
 spring:
   application:
@@ -18,9 +19,29 @@ spring:
     password: postgres
   liquibase:
     enabled: false
+  cache:
+    jcache:
+      provider: com.github.benmanes.caffeine.jcache.spi.CaffeineCachingProvider
+    cache-names:
+      - rate-limit-cache
+    caffeine:
+      spec: maximumSize=100000,expireAfterAccess=3600s
 
 server:
   port: 8080
+
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: rate-limit-cache
+      url: /.*
+      http-response-body: "{ \"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted your API Request Quota\" }"
+      rate-limits:
+        - cache-key: "getHeader('X-Forwarded-For')"
+          bandwidths:
+            - capacity: 3
+              time: 10
+              unit: seconds
 
 logging:
   config: classpath:log4j2-plain.xml
