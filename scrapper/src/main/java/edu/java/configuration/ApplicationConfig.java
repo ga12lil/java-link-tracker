@@ -15,10 +15,17 @@ public record ApplicationConfig(
     @NotNull
     Api api,
     @NotNull
+    KafkaConfig kafka,
+    @NotNull
     RetryType clientRetryType
 ) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
 
     public record Api(@NotNull URI gitHubApiPath, @NotNull URI stackOverflowApiPath, @NotNull URI botPath) {}
+
+    public record KafkaConfig(@NotNull String bootstrapServer,
+                              @NotNull String topicName,
+                              @NotNull int partitionsCount,
+                              @NotNull short replicationCount) {}
 }
