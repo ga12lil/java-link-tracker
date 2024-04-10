@@ -4,6 +4,7 @@ import edu.java.httpclient.GitHubClient;
 import edu.java.httpclient.StackOverflowClient;
 import edu.java.httpclient.botclient.BotClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
@@ -29,6 +30,7 @@ public class ClientConfig {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "app", name = "useQueue", havingValue = "false")
     BotClient botClient(ApplicationConfig applicationConfig) {
         WebClient client = WebClient.builder()
                 .baseUrl(applicationConfig.api().botPath().toString())

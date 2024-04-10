@@ -39,9 +39,6 @@ public class LinkUpdaterScheduler {
             if (!updatedLink.updatedAt().equals(linkEntity.updatedAt())) {
                 log.info("link: {} have updates! new updatedAt: {}, old: {}",
                         updatedLink.url(), updatedLink.updatedAt(), linkEntity.updatedAt());
-                log.info(updatedLink.updatedAt().toString());
-                log.info(linkEntity.updatedAt().toString());
-                log.info("link: {} have updates!", updatedLink.url());
                 try {
                     List<ChatEntity> chats = chatService.findByLink(URI.create(updatedLink.url()));
                     LinkUpdateRequest request = new LinkUpdateRequest(
