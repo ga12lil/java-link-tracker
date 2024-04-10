@@ -5,11 +5,16 @@ import com.pengrad.telegrambot.model.Chat;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import edu.java.bot.BotApplication;
+import edu.java.bot.dto.scrapper.LinkResponse;
+import edu.java.bot.dto.scrapper.ListLinksResponse;
+import edu.java.bot.httpclient.ScrapperClient;
 import edu.java.bot.repository.User;
 import edu.java.bot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.net.URI;
 import java.util.SortedSet;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -33,11 +38,11 @@ public class AbstractTest {
         return update;
     }
 
-    protected UserRepository getMockRepo(SortedSet<String> links){
-        User user = mock(User.class);
-        when(user.getTrackLinks()).thenReturn(links);
-        UserRepository repository = mock(UserRepository.class);
-        when(repository.getUser(any())).thenReturn(user);
-        return repository;
+    protected ScrapperClient getMockScrapperClient(SortedSet<String> links){
+        var allLinks = links.stream().map(x->new LinkResponse(0L, URI.create(x))).toList();
+        ListLinksResponse listLinksResponse = new ListLinksResponse(allLinks, 0);
+        ScrapperClient client = mock(ScrapperClient.class);
+        when(client.getAllLinks(any())).thenReturn(listLinksResponse);
+        return client;
     }
 }
