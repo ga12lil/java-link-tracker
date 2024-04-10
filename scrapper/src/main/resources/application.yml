@@ -14,6 +14,7 @@ app:
     partitions-count: 3
     replication-count: 1
   database-access-type: jpa
+  useQueue: true
 
 spring:
   application:

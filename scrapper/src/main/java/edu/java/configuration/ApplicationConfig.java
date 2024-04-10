@@ -19,7 +19,11 @@ public record ApplicationConfig(
     @NotNull
     RetryType clientRetryType,
     @NotNull
-    AccessType databaseAccessType
+    AccessType databaseAccessType,
+    @NotNull
+    AccessType databaseAccessType,
+    @NotNull
+    boolean useQueue
 ) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
