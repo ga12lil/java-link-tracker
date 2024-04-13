@@ -1,10 +1,10 @@
-package edu.java.configuration;
+package edu.java.bot.configuration.kafka;
 
-import edu.java.dto.bot.LinkUpdateRequest;
+import edu.java.bot.configuration.ApplicationConfig;
+import edu.java.bot.dto.LinkUpdateRequest;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
@@ -18,15 +18,11 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 @Configuration
 @EnableKafka
 @RequiredArgsConstructor
-public class KafkaConfig {
+public class ProducerConfiguration {
     private final ApplicationConfig config;
 
     @Bean
-    public KafkaTemplate<String, LinkUpdateRequest> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
-    }
-
-    private ProducerFactory<String, LinkUpdateRequest> producerFactory() {
+    public ProducerFactory<String, LinkUpdateRequest> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -45,11 +41,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public NewTopic messagesTopic() {
-        return new NewTopic(
-                config.kafka().topicName(),
-                config.kafka().partitionsCount(),
-                config.kafka().replicationCount()
-        );
+    public KafkaTemplate<String, LinkUpdateRequest> kafkaTemplate() {
+        return new KafkaTemplate<>(producerFactory());
     }
 }
