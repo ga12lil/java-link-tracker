@@ -16,10 +16,6 @@ spring:
     time-zone: UTC
   config:
     import: optional:file:.env[.properties]
-  kafka:
-    consumer:
-      properties:
-        spring.json.trusted.packages: "edu.java.dto.bot.LinkUpdateRequest"
 
 server:
   port: 8090

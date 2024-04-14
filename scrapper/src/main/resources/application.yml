@@ -13,7 +13,7 @@ app:
     topic-name: update-messages-topic
     partitions-count: 3
     replication-count: 1
-  database-access-type: jpa
+  database-access-type: jdbc
   useQueue: true
 
 spring:
