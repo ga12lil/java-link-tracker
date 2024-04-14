@@ -65,6 +65,8 @@ services:
       - "3000:3000"
     depends_on:
       - prometheus
+    networks:
+      - monitoring
 
   prometheus:
     image: prom/prometheus:v2.51.2
@@ -74,6 +76,8 @@ services:
       - --config.file=/etc/prometheus.yml
     ports:
       - 9090:9090
+    networks:
+      - monitoring
 
 volumes:
   postgresql: { }
@@ -82,3 +86,4 @@ volumes:
 
 networks:
   backend: { }
+  monitoring: { }
