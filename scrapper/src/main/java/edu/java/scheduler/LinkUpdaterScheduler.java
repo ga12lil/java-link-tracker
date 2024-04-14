@@ -55,8 +55,6 @@ public class LinkUpdaterScheduler {
                 } catch (LinkNotFoundException ex) {
                     log.error("link not found: " + ex.getMessage());
                 }
-
-
             }
             linkService.save(updatedLink);
         }

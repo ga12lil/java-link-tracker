@@ -6,11 +6,12 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ListCommandTest extends AbstractTest {
+    private final ListCommand listCommand = new ListCommand(client);
 
     @Test
     public void handleEmptyTrackList() {
         SortedSet<String> links = new TreeSet<>();
-        ListCommand listCommand = new ListCommand(getMockScrapperClient(links));
+        getMockScrapperClient(links);
         Update update = getMockUpdate();
 
         assertEquals("You don't have tracking links. Use /track"
@@ -22,7 +23,7 @@ class ListCommandTest extends AbstractTest {
         SortedSet<String> links = new TreeSet<>();
         links.add("Track1");
         links.add("Track2");
-        ListCommand listCommand = new ListCommand(getMockScrapperClient(links));
+        getMockScrapperClient(links);
         Update update = getMockUpdate();
 
         assertEquals("Tracking links:\n- Track1\n- Track2\n"

@@ -31,7 +31,7 @@ public class ListCommand implements Command {
     private String getTrackLinks(Long chatId) {
         ListLinksResponse response = scrapperClient.getAllLinks(chatId);
         SortedSet<String> trackLinks = response.links().stream()
-                .map(x -> x.url().toString())
+                .map(link -> link.url().toString())
                 .collect(Collectors.toCollection(TreeSet::new));
         StringBuilder message = new StringBuilder();
         if (trackLinks.isEmpty()) {

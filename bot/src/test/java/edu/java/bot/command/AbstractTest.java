@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 public class AbstractTest {
     @MockBean
     TelegramBot bot;
+    protected ScrapperClient client = mock(ScrapperClient.class);
 
     @Autowired
     protected UserRepository userRepository;
@@ -38,11 +39,9 @@ public class AbstractTest {
         return update;
     }
 
-    protected ScrapperClient getMockScrapperClient(SortedSet<String> links){
-        var allLinks = links.stream().map(x->new LinkResponse(0L, URI.create(x))).toList();
+    protected void getMockScrapperClient(SortedSet<String> links){
+        var allLinks = links.stream().map(link->new LinkResponse(0L, URI.create(link))).toList();
         ListLinksResponse listLinksResponse = new ListLinksResponse(allLinks, 0);
-        ScrapperClient client = mock(ScrapperClient.class);
         when(client.getAllLinks(any())).thenReturn(listLinksResponse);
-        return client;
     }
 }
