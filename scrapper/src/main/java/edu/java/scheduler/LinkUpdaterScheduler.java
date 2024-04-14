@@ -32,32 +32,40 @@ public class LinkUpdaterScheduler {
     @Scheduled(fixedDelayString = "#{@schedulerIntervalMs}")
     public void update() {
         log.info("Scheduler started updating links...");
-        OffsetDateTime dateTime = OffsetDateTime.now().minus(forceCheckDelay);
-        List<LinkEntity> linksToUpdate = linkService.findLinksUpdatedBefore(dateTime);
+
+        List<LinkEntity> linksToUpdate = getLinksToUpdate();
         for (LinkEntity linkEntity : linksToUpdate) {
             LinkEntity updatedLink = linkUpdater.update(linkEntity);
             if (!updatedLink.updatedAt().equals(linkEntity.updatedAt())) {
                 log.info("link: {} have updates! new updatedAt: {}, old: {}",
                         updatedLink.url(), updatedLink.updatedAt(), linkEntity.updatedAt());
+
                 try {
-                    List<ChatEntity> chats = chatService.findByLink(URI.create(updatedLink.url()));
-                    LinkUpdateRequest request = new LinkUpdateRequest(
-                            updatedLink.id(),
-                            updatedLink.url(),
-                            String.format(
-                                    "link: %s updated\n last update: %s",
-                                    updatedLink.url(),
-                                    updatedLink.updatedAt()),
-                            chats.stream().map((chat) -> chat.id()).toList()
-                    );
-                    botClient.postUpdate(request);
+                    sendUpdateToBot(updatedLink);
                 } catch (LinkNotFoundException ex) {
                     log.error("link not found: " + ex.getMessage());
                 }
-
-
             }
             linkService.save(updatedLink);
         }
+    }
+
+    private List<LinkEntity> getLinksToUpdate() {
+        OffsetDateTime dateTime = OffsetDateTime.now().minus(forceCheckDelay);
+        return linkService.findLinksUpdatedBefore(dateTime);
+    }
+
+    private void sendUpdateToBot(LinkEntity updatedLink) throws LinkNotFoundException {
+        List<ChatEntity> chats = chatService.findByLink(URI.create(updatedLink.url()));
+        LinkUpdateRequest request = new LinkUpdateRequest(
+                updatedLink.id(),
+                updatedLink.url(),
+                String.format(
+                        "link: %s updated\n last update: %s",
+                        updatedLink.url(),
+                        updatedLink.updatedAt()),
+                chats.stream().map((chat) -> chat.id()).toList()
+        );
+        botClient.postUpdate(request);
     }
 }
