@@ -2,9 +2,11 @@ package edu.java.bot.command;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import edu.java.bot.repository.User;
-import edu.java.bot.repository.UserRepository;
+import edu.java.bot.dto.scrapper.ListLinksResponse;
+import edu.java.bot.httpclient.ScrapperClient;
 import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,8 +19,7 @@ public class ListCommand implements Command {
     private final String command = "/list";
     @Getter
     private final String description = "Write tracking resources";
-
-    private final UserRepository userRepository;
+    private final ScrapperClient scrapperClient;
 
     @Override
     public SendMessage handle(Update update) {
@@ -28,8 +29,10 @@ public class ListCommand implements Command {
     }
 
     private String getTrackLinks(Long chatId) {
-        User user = userRepository.getUser(chatId);
-        SortedSet<String> trackLinks = user.getTrackLinks();
+        ListLinksResponse response = scrapperClient.getAllLinks(chatId);
+        SortedSet<String> trackLinks = response.links().stream()
+                .map(x -> x.url().toString())
+                .collect(Collectors.toCollection(TreeSet::new));
         StringBuilder message = new StringBuilder();
         if (trackLinks.isEmpty()) {
             message.append("You don't have tracking links. Use /track");
