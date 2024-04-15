@@ -9,6 +9,7 @@ import edu.java.dto.links.RemoveLinkRequest;
 import edu.java.dto.mapper.LinkMapper;
 import edu.java.exception.LinkNotFoundException;
 import edu.java.service.LinkService;
+import io.micrometer.core.instrument.Counter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LinksController {
     private final LinkService linkService;
     private final LinkMapper linkMapper;
+    private final Counter requestsCounter;
 
     @GetMapping
     @Operation(summary = "Получить отслеживаемые ссылки")
@@ -42,6 +44,7 @@ public class LinksController {
     )
     public ListLinksResponse getAllLinks(@RequestHeader(value = "Tg-Chat-Id") Long tgChatId) {
         List<LinkEntity> listLinks = linkService.listAll(tgChatId);
+        requestsCounter.increment();
         return linkMapper.toListLinksResponse(listLinks);
     }
 
@@ -59,6 +62,7 @@ public class LinksController {
             @RequestHeader(value = "Tg-Chat-Id") Long tgChatId,
             @RequestBody AddLinkRequest request) {
         LinkEntity link = linkService.add(tgChatId, request.link());
+        requestsCounter.increment();
         return linkMapper.toLinkResponse(link);
     }
 
@@ -80,6 +84,7 @@ public class LinksController {
             @RequestHeader(value = "Tg-Chat-Id") Long tgChatId,
             @RequestBody RemoveLinkRequest request) throws LinkNotFoundException {
         LinkEntity linkEntity = linkService.remove(tgChatId, request.link());
+        requestsCounter.increment();
         return linkMapper.toLinkResponse(linkEntity);
     }
 }
