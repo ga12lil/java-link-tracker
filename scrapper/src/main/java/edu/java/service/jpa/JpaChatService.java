@@ -31,9 +31,7 @@ public class JpaChatService implements ChatService {
     @Override
     @Transactional
     public void unregister(long id) {
-        JpaChatEntity chat = new JpaChatEntity();
-        chat.setId(id);
-        chatRepository.delete(chat);
+        chatRepository.deleteById(id);
     }
 
     @Override
