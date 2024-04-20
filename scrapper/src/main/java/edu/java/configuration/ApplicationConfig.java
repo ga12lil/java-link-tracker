@@ -15,6 +15,8 @@ public record ApplicationConfig(
     @NotNull
     Api api,
     @NotNull
+    AccessType databaseAccessType,
+    @NotNull
     RetryType clientRetryType
 ) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {

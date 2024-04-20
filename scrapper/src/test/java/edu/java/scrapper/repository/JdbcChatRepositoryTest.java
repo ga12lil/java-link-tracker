@@ -1,17 +1,15 @@
 package edu.java.scrapper.repository;
 
 import edu.java.repository.JdbcChatRepository;
-import edu.java.scrapper.IntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JdbcChatRepositoryTest extends IntegrationTest {
+public class JdbcChatRepositoryTest extends JdbcIntegrationTest {
     @Autowired
     private JdbcChatRepository chatRepository;
     @Autowired

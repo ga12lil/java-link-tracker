@@ -2,7 +2,6 @@ package edu.java.scrapper.repository;
 
 import edu.java.dto.domain.LinkEntity;
 import edu.java.repository.JdbcLinkRepository;
-import edu.java.scrapper.IntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
@@ -10,13 +9,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JdbcLinkRepositoryTest extends IntegrationTest {
+public class JdbcLinkRepositoryTest extends JdbcIntegrationTest {
     @Autowired
     private JdbcLinkRepository linkRepository;
     @Autowired

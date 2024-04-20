@@ -1,40 +1,41 @@
-package edu.java.scrapper.service;
+package edu.java.scrapper.jpa;
 
-import edu.java.repository.JdbcLinkRepository;
-import edu.java.repository.JdbcSubscriptionRepository;
-import edu.java.scrapper.repository.JdbcIntegrationTest;
+import edu.java.dto.mapper.LinkMapper;
+import edu.java.repository.jpa.JpaChatRepository;
+import edu.java.repository.jpa.JpaLinkRepository;
 import edu.java.service.LinkUpdater;
-import edu.java.service.jdbc.JdbcLinkService;
+import edu.java.service.jpa.JpaLinkService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
+
 import java.net.URI;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JdbcLinkServiceTest extends JdbcIntegrationTest {
-    private JdbcLinkService linkService;
+public class JpaLinkServiceTest extends JpaIntegrationTest {
+    @Autowired
+    private JpaChatRepository chatRepository;
+    @Autowired
+    private JpaLinkRepository linkRepository;
+    @Autowired
+    private LinkMapper mapper;
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private LinkUpdater linkUpdater;
-    @Autowired
-    private JdbcLinkRepository linkRepository;
-    @Autowired
-    private JdbcSubscriptionRepository subscriptionRepository;
+
+    private JpaLinkService linkService;
 
     @BeforeEach
     public void setUp() {
-        linkService = new JdbcLinkService(linkRepository, subscriptionRepository, linkUpdater);
+        linkService = new JpaLinkService( linkRepository, chatRepository, linkUpdater, mapper);
     }
 
     @Test
-    @Transactional
-    @Rollback
     @Sql("/sql/add-five-chats.sql")
     void addTest() {
         Long chatId = 121L;
@@ -55,12 +56,10 @@ public class JdbcLinkServiceTest extends JdbcIntegrationTest {
     }
 
     @Test
-    @Transactional
-    @Rollback
-    @Sql("/sql/add-five-chats.sql")
+    @Sql("/sql/add-chat.sql")
     @SneakyThrows
     void removeTest() {
-        Long chatId = 121L;
+        Long chatId = 1L;
         String link = "https://github.com/ga12lil/java-course-2023-backend";
         URI url = URI.create(link);
         linkService.add(chatId, url);

@@ -1,40 +1,40 @@
-package edu.java.scrapper.service;
+package edu.java.scrapper.jpa;
 
-import edu.java.repository.JdbcChatRepository;
-import edu.java.repository.JdbcLinkRepository;
-import edu.java.repository.JdbcSubscriptionRepository;
-import edu.java.scrapper.repository.JdbcIntegrationTest;
-import edu.java.service.jdbc.JdbcChatService;
+import edu.java.dto.domain.ChatEntity;
+import edu.java.dto.mapper.ChatMapper;
+import edu.java.repository.jpa.JpaChatRepository;
+import edu.java.repository.jpa.JpaLinkRepository;
+import edu.java.service.jpa.JpaChatService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.net.URI;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JdbcChatServiceTest extends JdbcIntegrationTest {
-    private JdbcChatService chatService;
+public class JpaChatServiceTest extends JpaIntegrationTest {
+    @Autowired
+    private JpaChatRepository chatRepository;
+    @Autowired
+    private JpaLinkRepository linkRepository;
+    @Autowired
+    private ChatMapper mapper;
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    @Autowired
-    private JdbcChatRepository chatRepository;
-    @Autowired
-    private JdbcLinkRepository linkRepository;
-    @Autowired
-    private JdbcSubscriptionRepository subscriptionRepository;
+
+    private JpaChatService chatService;
 
     @BeforeEach
     public void setUp() {
-        chatService = new JdbcChatService(chatRepository, subscriptionRepository, linkRepository);
+        chatService = new JpaChatService(chatRepository, linkRepository, mapper);
     }
-
     @Test
-    @Transactional
-    @Rollback
-    void registerTest() {
+    void registerChat() {
         Long chatId = 5L;
         int before = countChatsQuery(chatId);
         chatService.register(chatId);
@@ -43,8 +43,6 @@ public class JdbcChatServiceTest extends JdbcIntegrationTest {
     }
 
     @Test
-    @Transactional
-    @Rollback
     @Sql("/sql/add-five-chats.sql")
     @SneakyThrows
     void removeTest() {
@@ -53,6 +51,15 @@ public class JdbcChatServiceTest extends JdbcIntegrationTest {
         chatService.unregister(chatId);
         int after = countChatsQuery(chatId);
         assertEquals(before - after, 1);
+    }
+
+    @Test
+    @Sql("/sql/add-subscription.sql")
+    @SneakyThrows
+    void findByLinkTest() {
+        List<ChatEntity> response = chatService.findByLink(URI.create("link"));
+        Long chatId = response.getFirst().id();
+        assertEquals(chatId, 12L);
     }
 
     private int countChatsQuery(Long chatId){

@@ -12,7 +12,7 @@ public class UpdatesService {
     private final Bot bot;
 
     public void postUpdate(LinkUpdateRequest linkUpdateRequest) {
-        for (var id : linkUpdateRequest.tgChatIds()) {
+        for (var id : linkUpdateRequest.tgChatsIds()) {
             bot.execute(new SendMessage(id, linkUpdateRequest.description()));
         }
     }
