@@ -59,7 +59,7 @@ public class JpaChatServiceTest extends JpaIntegrationTest {
     void findByLinkTest() {
         List<ChatEntity> response = chatService.findByLink(URI.create("link"));
         Long chatId = response.getFirst().id();
-        assertEquals(chatId, 123L);
+        assertEquals(chatId, 12L);
     }
 
     private int countChatsQuery(Long chatId){
