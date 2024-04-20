@@ -8,6 +8,13 @@ app:
     stack-overflow-api-path: https://api.stackexchange.com
     bot-path: http://localhost:8090
   client-retry-type: constant
+  kafka:
+    bootstrap-server: localhost:9092
+    topic-name: update-messages-topic
+    partitions-count: 3
+    replication-count: 1
+  database-access-type: jdbc
+  useQueue: true
 
 spring:
   application:

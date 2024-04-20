@@ -10,7 +10,7 @@ class ListCommandTest extends AbstractTest {
     @Test
     public void handleEmptyTrackList() {
         SortedSet<String> links = new TreeSet<>();
-        ListCommand listCommand = new ListCommand(getMockRepo(links));
+        ListCommand listCommand = new ListCommand(getMockScrapperClient(links));
         Update update = getMockUpdate();
 
         assertEquals("You don't have tracking links. Use /track"
@@ -22,7 +22,7 @@ class ListCommandTest extends AbstractTest {
         SortedSet<String> links = new TreeSet<>();
         links.add("Track1");
         links.add("Track2");
-        ListCommand listCommand = new ListCommand(getMockRepo(links));
+        ListCommand listCommand = new ListCommand(getMockScrapperClient(links));
         Update update = getMockUpdate();
 
         assertEquals("Tracking links:\n- Track1\n- Track2\n"
