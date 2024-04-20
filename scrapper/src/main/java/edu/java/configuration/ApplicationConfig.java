@@ -21,8 +21,6 @@ public record ApplicationConfig(
     @NotNull
     AccessType databaseAccessType,
     @NotNull
-    AccessType databaseAccessType,
-    @NotNull
     boolean useQueue
 ) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
