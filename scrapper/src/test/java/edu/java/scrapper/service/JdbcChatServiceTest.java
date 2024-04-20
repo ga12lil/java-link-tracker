@@ -1,22 +1,35 @@
 package edu.java.scrapper.service;
 
-import edu.java.scrapper.IntegrationTest;
+import edu.java.repository.JdbcChatRepository;
+import edu.java.repository.JdbcLinkRepository;
+import edu.java.repository.JdbcSubscriptionRepository;
+import edu.java.scrapper.repository.JdbcIntegrationTest;
 import edu.java.service.jdbc.JdbcChatService;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JdbcChatServiceTest extends IntegrationTest {
-    @Autowired
+public class JdbcChatServiceTest extends JdbcIntegrationTest {
     private JdbcChatService chatService;
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcChatRepository chatRepository;
+    @Autowired
+    private JdbcLinkRepository linkRepository;
+    @Autowired
+    private JdbcSubscriptionRepository subscriptionRepository;
+
+    @BeforeEach
+    public void setUp() {
+        chatService = new JdbcChatService(chatRepository, subscriptionRepository, linkRepository);
+    }
 
     @Test
     @Transactional

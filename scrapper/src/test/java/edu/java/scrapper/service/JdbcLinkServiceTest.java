@@ -1,24 +1,36 @@
 package edu.java.scrapper.service;
 
-import edu.java.scrapper.IntegrationTest;
+import edu.java.repository.JdbcLinkRepository;
+import edu.java.repository.JdbcSubscriptionRepository;
+import edu.java.scrapper.repository.JdbcIntegrationTest;
+import edu.java.service.LinkUpdater;
 import edu.java.service.jdbc.JdbcLinkService;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.net.URI;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JdbcLinkServiceTest extends IntegrationTest {
-    @Autowired
+public class JdbcLinkServiceTest extends JdbcIntegrationTest {
     private JdbcLinkService linkService;
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private LinkUpdater linkUpdater;
+    @Autowired
+    private JdbcLinkRepository linkRepository;
+    @Autowired
+    private JdbcSubscriptionRepository subscriptionRepository;
+
+    @BeforeEach
+    public void setUp() {
+        linkService = new JdbcLinkService(linkRepository, subscriptionRepository, linkUpdater);
+    }
 
     @Test
     @Transactional
