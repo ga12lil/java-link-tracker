@@ -31,7 +31,7 @@ public class LinkUpdaterScheduler {
 
     @Scheduled(fixedDelayString = "#{@schedulerIntervalMs}")
     public void update() {
-        log.info("scheduler");
+        log.info("Scheduler started updating links...");
         OffsetDateTime dateTime = OffsetDateTime.now().minus(forceCheckDelay);
         List<LinkEntity> linksToUpdate = linkService.findLinksUpdatedBefore(dateTime);
         for (LinkEntity linkEntity : linksToUpdate) {
@@ -55,6 +55,8 @@ public class LinkUpdaterScheduler {
                 } catch (LinkNotFoundException ex) {
                     log.error("link not found: " + ex.getMessage());
                 }
+                log.info("link: {} have updates! new updatedAt: {}, old: {}",
+                        updatedLink.url(), updatedLink.updatedAt(), linkEntity.updatedAt());
             }
             linkService.save(updatedLink);
         }

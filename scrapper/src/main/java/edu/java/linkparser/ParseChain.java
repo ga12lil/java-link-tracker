@@ -3,15 +3,14 @@ package edu.java.linkparser;
 import edu.java.linkparser.processor.ParseProcessor;
 import edu.java.linkparser.response.ParseResponse;
 import java.net.URI;
-import java.util.LinkedList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
+@Component
 public final class ParseChain {
-    private final List<ParseProcessor> processors = new LinkedList<>();
-
-    public void addProcessor(ParseProcessor parseProcessor) {
-        processors.add(parseProcessor);
-    }
+    private final List<ParseProcessor> processors;
 
     public ParseResponse parse(URI link) {
         for (ParseProcessor processor : processors) {

@@ -1,5 +1,6 @@
 package edu.java.configuration;
 
+import edu.java.configuration.httpclient.RetryType;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.time.Duration;
@@ -14,8 +15,9 @@ public record ApplicationConfig(
     @NotNull
     Api api,
     @NotNull
-    AccessType databaseAccessType
-
+    AccessType databaseAccessType,
+    @NotNull
+    RetryType clientRetryType
 ) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
