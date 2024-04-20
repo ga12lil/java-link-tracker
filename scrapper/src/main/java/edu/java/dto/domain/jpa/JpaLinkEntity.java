@@ -3,11 +3,11 @@ package edu.java.dto.domain.jpa;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -21,8 +21,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class JpaLinkEntity {
     @Id
     @Column(name = "id")
-    @GeneratedValue(generator = "link_sec")
-    @SequenceGenerator(name = "link_sec", sequenceName = "link_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "url", unique = true)
