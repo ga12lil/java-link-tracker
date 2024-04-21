@@ -3,6 +3,7 @@ package edu.java.bot.controller;
 import edu.java.bot.dto.ApiErrorResponse;
 import edu.java.bot.dto.LinkUpdateRequest;
 import edu.java.bot.service.UpdatesService;
+import io.micrometer.core.instrument.Counter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UpdatesController {
     private final UpdatesService updatesService;
+    private final Counter requestsCounter;
 
     @PostMapping
     @Operation(summary = "Отправить обновление", description = "Ok")
@@ -32,5 +34,6 @@ public class UpdatesController {
     )
     public void postUpdate(@RequestBody LinkUpdateRequest linkUpdateRequest) {
         updatesService.postUpdate(linkUpdateRequest);
+        requestsCounter.increment();
     }
 }

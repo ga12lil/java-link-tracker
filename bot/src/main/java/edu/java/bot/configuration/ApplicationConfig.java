@@ -16,6 +16,13 @@ public record ApplicationConfig(
     @NotNull
     URI scrapperPath,
     @NotNull
-    RetryType clientRetryType
+    RetryType clientRetryType,
+    @NotNull
+    KafkaConfig kafka
 ) {
+    public record KafkaConfig(@NotNull String bootstrapServer,
+                              @NotNull String topicName,
+                              @NotNull String groupId,
+                              @NotNull int partitionsCount,
+                              @NotNull short replicationCount) {}
 }
